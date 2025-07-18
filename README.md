@@ -6,6 +6,14 @@
 
 Shared types for the SyntropyLog ecosystem.
 
+## Version 0.1.1
+
+**New in this version:**
+- Added comprehensive serialization types (SerializedData, SerializationResult, etc.)
+- Added logging-specific types (LogEntry, LoggerOptions, LoggerDependencies)
+- Added metrics types (SerializationMetrics, ComplexityDistribution, etc.)
+- Centralized all shared types for better consistency across the ecosystem
+
 ## Overview
 
 This package contains the fundamental types used across the SyntropyLog ecosystem. These types are designed to be shared between the main library and future modules like adapters and serializers.
@@ -67,6 +75,23 @@ class MyLogger implements ILogger {
 - `RedisSortedSetMember` - Type for Redis sorted set members
 - `RedisHashValue` - Type for Redis hash field values
 - `RedisCommandOptions` - Type for Redis command options
+
+### Serialization Types
+- `SerializedData` - Type for serialization result data
+- `SerializationContextConfig` - Type for serialization context configuration
+- `SanitizationConfig` - Type for sanitization configuration
+- `SerializationPipelineContext` - Type for pipeline context
+- `SerializationResult` - Type for serialization result
+- `SerializationMetadata` - Type for serialization metadata
+- `SerializationMetrics` - Type for serialization metrics
+- `ComplexityDistribution` - Type for complexity distribution metrics
+- `SerializerDistribution` - Type for serializer distribution metrics
+- `TimeoutStrategyDistribution` - Type for timeout strategy distribution metrics
+
+### Logging Types
+- `LogEntry` - Type for log entry structure
+- `LoggerOptions` - Type for logger options
+- `LoggerDependencies` - Type for logger dependencies
 
 ## Development
 

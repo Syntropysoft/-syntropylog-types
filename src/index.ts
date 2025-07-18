@@ -288,4 +288,152 @@ export interface IContextManager {
   clearContext(): void;
   runWithContext<T>(context: ContextData, fn: () => T | Promise<T>): Promise<T>;
   runWithContext<T>(context: ContextData, fn: () => T): T;
-} 
+}
+
+// ============================================================================
+// TIPOS ESPECÍFICOS PARA SERIALIZACIÓN
+// ============================================================================
+
+/**
+ * Type for serialization result data
+ * Note: We keep this as 'any' by design as serialized data can be any format
+ */
+export type SerializedData = any;
+
+/**
+ * Type for serialization context configuration
+ */
+export type SerializationContextConfig = {
+  depth: number;
+  maxDepth: number;
+  sensitiveFields: string[];
+  sanitize: boolean;
+  customTimeout?: number;
+};
+
+/**
+ * Type for sanitization configuration
+ */
+export type SanitizationConfig = {
+  sensitiveFields: string[];
+  redactPatterns: RegExp[];
+  maxStringLength: number;
+  enableDeepSanitization: boolean;
+};
+
+/**
+ * Type for pipeline context
+ */
+export type SerializationPipelineContext = {
+  serializationContext: SerializationContextConfig;
+  sanitizeSensitiveData: boolean;
+  sanitizationContext: SanitizationConfig;
+  enableMetrics: boolean;
+};
+
+/**
+ * Type for step durations in pipeline
+ */
+export type StepDurations = {
+  serialization?: number;
+  sanitization?: number;
+  timeout?: number;
+};
+
+/**
+ * Type for serialization metadata
+ */
+export type SerializationMetadata = {
+  stepDurations?: StepDurations;
+  operationTimeout?: number;
+  complexity?: string;
+  serializer?: string;
+  timeoutStrategy?: string;
+};
+
+/**
+ * Type for serialization result
+ */
+export type SerializationResult = {
+  data: SerializedData;
+  serializer: string;
+  duration: number;
+  complexity: string;
+  sanitized: boolean;
+  success: boolean;
+  metadata: SerializationMetadata;
+  error?: string;
+};
+
+/**
+ * Type for complexity distribution metrics
+ */
+export type ComplexityDistribution = {
+  low: number;
+  medium: number;
+  high: number;
+};
+
+/**
+ * Type for serializer distribution metrics
+ */
+export type SerializerDistribution = Record<string, number>;
+
+/**
+ * Type for timeout strategy distribution metrics
+ */
+export type TimeoutStrategyDistribution = Record<string, number>;
+
+/**
+ * Type for serialization metrics
+ */
+export type SerializationMetrics = {
+  totalSerializations: number;
+  successfulSerializations: number;
+  failedSerializations: number;
+  averageSerializationDuration: number;
+  averageOperationTimeout: number;
+  maxSerializationDuration: number;
+  minSerializationDuration: number;
+  complexityDistribution: ComplexityDistribution;
+  serializerDistribution: SerializerDistribution;
+  timeoutStrategyDistribution: TimeoutStrategyDistribution;
+};
+
+// ============================================================================
+// TIPOS ESPECÍFICOS PARA LOGGING
+// ============================================================================
+
+/**
+ * Type for logger dependencies
+ */
+export type LoggerDependencies = {
+  contextManager: unknown; // Will be properly typed when we get to context
+  serializerRegistry: unknown; // Will be properly typed when we get to serialization
+  maskingEngine: unknown; // Will be properly typed when we get to masking
+  syntropyLogInstance: unknown; // Will be properly typed when we get to main class
+};
+
+/**
+ * Type for log entry structure
+ */
+export type LogEntry = {
+  /** The severity level of the log. */
+  level: string;
+  /** The main log message, formatted from the arguments. */
+  message: string;
+  /** The ISO 8601 timestamp of when the log was created. */
+  timestamp: string;
+  /** Any other properties are treated as structured metadata. */
+  [key: string]: any;
+};
+
+/**
+ * Type for logger options
+ */
+export type LoggerOptions = {
+  level?: string;
+  serviceName?: string;
+  transports?: unknown[]; // Will be properly typed in the logger implementation
+  bindings?: Record<string, any>;
+}; 

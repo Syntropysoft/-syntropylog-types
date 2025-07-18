@@ -1,0 +1,39 @@
+{
+  "name": "@syntropylog/types",
+  "version": "0.1.0",
+  "description": "Shared types for SyntropyLog ecosystem",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "prepublishOnly": "npm run build",
+    "version:patch": "npm version patch",
+    "version:minor": "npm version minor",
+    "version:major": "npm version major"
+  },
+  "keywords": [
+    "types",
+    "syntropy",
+    "logging",
+    "typescript"
+  ],
+  "author": "SyntropyLog Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Syntropysoft/-syntropylog-types.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Syntropysoft/-syntropylog-types/issues"
+  },
+  "homepage": "https://github.com/Syntropysoft/-syntropylog-types#readme",
+  "devDependencies": {
+    "@types/node": "^24.0.14",
+    "typescript": "^5.0.0"
+  }
+}

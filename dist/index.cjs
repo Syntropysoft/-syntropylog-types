@@ -7,8 +7,6 @@
  * ecosystem. These types are designed to be shared between the main library
  * and future modules like adapters and serializers.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.errorToJsonValue = errorToJsonValue;
 /**
  * Helper function to convert unknown error to JsonValue
  */
@@ -22,4 +20,6 @@ function errorToJsonValue(error) {
     }
     return String(error);
 }
+
+exports.errorToJsonValue = errorToJsonValue;
 //# sourceMappingURL=index.cjs.map

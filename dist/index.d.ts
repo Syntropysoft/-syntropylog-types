@@ -9,27 +9,27 @@
  * Represents any value that can be safely serialized to JSON.
  * This is a recursive type used to ensure type safety for log metadata.
  */
-export type JsonValue = string | number | boolean | null | {
+type JsonValue = string | number | boolean | null | {
     [key: string]: JsonValue;
 } | JsonValue[];
 /**
  * Union type for all data types that can be serialized
  */
-export type SerializableData = string | number | boolean | null | undefined | Date | Buffer | SerializableData[] | {
+type SerializableData = string | number | boolean | null | undefined | Date | Buffer | SerializableData[] | {
     [key: string]: SerializableData;
 } | Map<string, SerializableData> | Set<SerializableData>;
 /**
  * Type for log metadata objects that can be passed to logging methods
  */
-export type LogMetadata = Record<string, JsonValue>;
+type LogMetadata = Record<string, JsonValue>;
 /**
  * Type for log bindings that are attached to logger instances
  */
-export type LogBindings = Record<string, JsonValue>;
+type LogBindings = Record<string, JsonValue>;
 /**
  * Type for retention rules that can be attached to loggers
  */
-export type LogRetentionRules = {
+type LogRetentionRules = {
     ttl?: number;
     maxSize?: number;
     maxEntries?: number;
@@ -40,32 +40,32 @@ export type LogRetentionRules = {
 /**
  * Type for format arguments that can be passed to logging methods
  */
-export type LogFormatArg = string | number | boolean | null | undefined;
+type LogFormatArg = string | number | boolean | null | undefined;
 /**
  * Helper function to convert unknown error to JsonValue
  */
-export declare function errorToJsonValue(error: unknown): JsonValue;
+declare function errorToJsonValue(error: unknown): JsonValue;
 /**
  * Type for the arguments that can be passed to logging methods
  * This follows the Pino-like signature: (obj, msg, ...args) or (msg, ...args)
  */
-export type LogArguments = [LogMetadata, string?, ...LogFormatArg[]] | [string, ...LogFormatArg[]] | [];
+type LogArguments = [LogMetadata, string?, ...LogFormatArg[]] | [string, ...LogFormatArg[]] | [];
 /**
  * Type for any object that can be used as metadata
  */
-export type MetadataObject = Record<string, JsonValue>;
+type MetadataObject = Record<string, JsonValue>;
 /**
  * Type for values that can be stored in context
  */
-export type ContextValue = string | number | boolean | null | undefined | Buffer | JsonValue;
+type ContextValue = string | number | boolean | null | undefined | Buffer | JsonValue;
 /**
  * Type for context data structure
  */
-export type ContextData = Record<string, ContextValue>;
+type ContextData = Record<string, ContextValue>;
 /**
  * Type for context configuration options
  */
-export type ContextConfig = {
+type ContextConfig = {
     correlationIdHeader?: string;
     transactionIdHeader?: string;
     [key: string]: ContextValue;
@@ -73,23 +73,23 @@ export type ContextConfig = {
 /**
  * Type for context headers used in HTTP requests
  */
-export type ContextHeaders = Record<string, string>;
+type ContextHeaders = Record<string, string>;
 /**
  * Type for context callback functions
  */
-export type ContextCallback = () => void | Promise<void>;
+type ContextCallback = () => void | Promise<void>;
 /**
  * Type for logging matrix configuration
  */
-export type LoggingMatrix = Partial<Record<string, string[]>>;
+type LoggingMatrix = Partial<Record<string, string[]>>;
 /**
  * Type for filtered context based on log level
  */
-export type FilteredContext = Record<string, unknown>;
+type FilteredContext = Record<string, unknown>;
 /**
  * Context object for logging operations
  */
-export type LogContext = {
+type LogContext = {
     correlationId?: string;
     userId?: string | number;
     sessionId?: string;
@@ -99,7 +99,7 @@ export type LogContext = {
 /**
  * Context for pipeline operations (serialization, sanitization, etc.)
  */
-export type PipelineContext = {
+type PipelineContext = {
     correlationId?: string;
     operation?: string;
     metadata?: Record<string, JsonValue>;
@@ -108,7 +108,7 @@ export type PipelineContext = {
 /**
  * Context for sanitization operations
  */
-export type SanitizationContext = {
+type SanitizationContext = {
     sensitiveFields?: string[];
     maskPatterns?: Record<string, string>;
     depth?: number;
@@ -117,45 +117,45 @@ export type SanitizationContext = {
 /**
  * Type for Redis values - covers all valid Redis data types
  */
-export type RedisValue = string | number | boolean | Buffer | null | undefined | RedisValue[] | {
+type RedisValue = string | number | boolean | Buffer | null | undefined | RedisValue[] | {
     [key: string]: RedisValue;
 };
 /**
  * Type for Redis list elements
  */
-export type RedisListElement = string | number | Buffer | null | undefined;
+type RedisListElement = string | number | Buffer | null | undefined;
 /**
  * Type for Redis set members
  */
-export type RedisSetMember = string | number | Buffer;
+type RedisSetMember = string | number | Buffer;
 /**
  * Type for Redis sorted set members with scores
  */
-export type RedisSortedSetMember = {
+type RedisSortedSetMember = {
     score: number;
     value: RedisValue;
 };
 /**
  * Type for Redis hash field values
  */
-export type RedisHashValue = string | number | Buffer;
+type RedisHashValue = string | number | Buffer;
 /**
  * Type for Redis command options
  */
-export type RedisCommandOptions = {
+type RedisCommandOptions = {
     [key: string]: JsonValue;
 };
 /**
  * Type for Redis pipeline operations
  */
-export type RedisPipelineOperation = {
+type RedisPipelineOperation = {
     command: string;
     args: RedisValue[];
 };
 /**
  * Type for Redis connection parameters
  */
-export type RedisConnectionParams = {
+type RedisConnectionParams = {
     host?: string;
     port?: number;
     password?: string;
@@ -167,7 +167,7 @@ export type RedisConnectionParams = {
  * The adapter is responsible for converting the broker-specific message
  * format to this structure, and vice-versa.
  */
-export interface BrokerMessage {
+interface BrokerMessage {
     /**
      * The actual content of the message. Using `Buffer` is the most flexible
      * approach as it supports any type of serialization (JSON, Avro, Protobuf, etc.).
@@ -184,7 +184,7 @@ export interface BrokerMessage {
  * An instance of this is passed to the user's message handler, allowing them
  * to confirm or reject the message.
  */
-export interface MessageLifecycleControls {
+interface MessageLifecycleControls {
     /**
      * Acknowledges that the message has been successfully processed.
      * This typically removes the message from the queue.
@@ -201,13 +201,13 @@ export interface MessageLifecycleControls {
 /**
  * The signature for the user-provided function that will process incoming messages.
  */
-export type MessageHandler = (message: BrokerMessage, controls: MessageLifecycleControls) => Promise<void>;
+type MessageHandler = (message: BrokerMessage, controls: MessageLifecycleControls) => Promise<void>;
 /**
  * The interface that every Broker Client Adapter must implement.
  * This is the "plug" where users will connect their specific messaging clients
  * (e.g., `amqplib`, `kafkajs`).
  */
-export interface IBrokerAdapter {
+interface IBrokerAdapter {
     /**
      * Establishes a connection to the message broker.
      */
@@ -234,7 +234,7 @@ export interface IBrokerAdapter {
  * can understand. The adapter is responsible for converting this to the
  * specific format of the underlying library (e.g., AxiosRequestConfig).
  */
-export interface AdapterHttpRequest {
+interface AdapterHttpRequest {
     /** The full URL for the request. */
     url: string;
     /** The HTTP method. */
@@ -250,7 +250,7 @@ export interface AdapterHttpRequest {
  * Represents a generic, normalized HTTP response. The adapter
  * will convert the library-specific response into this format.
  */
-export interface AdapterHttpResponse<T = any> {
+interface AdapterHttpResponse<T = any> {
     /** The HTTP status code of the response. */
     statusCode: number;
     /** The response body data. */
@@ -262,7 +262,7 @@ export interface AdapterHttpResponse<T = any> {
  * Represents a generic, normalized HTTP error. The adapter
  * will convert the library-specific error into this format.
  */
-export interface AdapterHttpError extends Error {
+interface AdapterHttpError extends Error {
     /** The original request that caused the error. */
     request: AdapterHttpRequest;
     /** The response received, if any. */
@@ -274,7 +274,7 @@ export interface AdapterHttpError extends Error {
  * The interface that every HTTP Client Adapter must implement.
  * This is the "plug" where users will connect their clients.
  */
-export interface IHttpClientAdapter {
+interface IHttpClientAdapter {
     /**
      * The core method that the SyntropyLog instrumenter needs. It executes an
      * HTTP request and returns a normalized response, or throws a normalized error.
@@ -286,7 +286,7 @@ export interface IHttpClientAdapter {
 /**
  * Base interface for logger implementations
  */
-export interface ILogger {
+interface ILogger {
     trace(message: string, ...args: LogFormatArg[]): void;
     trace(metadata: LogMetadata, message?: string, ...args: LogFormatArg[]): void;
     debug(message: string, ...args: LogFormatArg[]): void;
@@ -304,7 +304,7 @@ export interface ILogger {
 /**
  * Base interface for context manager implementations
  */
-export interface IContextManager {
+interface IContextManager {
     getCorrelationId(): string | undefined;
     setCorrelationId(id: string): void;
     getTransactionId(): string | undefined;
@@ -321,11 +321,11 @@ export interface IContextManager {
  * Type for serialization result data
  * Note: We keep this as 'any' by design as serialized data can be any format
  */
-export type SerializedData = any;
+type SerializedData = any;
 /**
  * Type for serialization context configuration
  */
-export type SerializationContextConfig = {
+type SerializationContextConfig = {
     depth: number;
     maxDepth: number;
     sensitiveFields: string[];
@@ -335,7 +335,7 @@ export type SerializationContextConfig = {
 /**
  * Type for sanitization configuration
  */
-export type SanitizationConfig = {
+type SanitizationConfig = {
     sensitiveFields: string[];
     redactPatterns: RegExp[];
     maxStringLength: number;
@@ -344,7 +344,7 @@ export type SanitizationConfig = {
 /**
  * Type for pipeline context
  */
-export type SerializationPipelineContext = {
+type SerializationPipelineContext = {
     serializationContext: SerializationContextConfig;
     sanitizeSensitiveData: boolean;
     sanitizationContext: SanitizationConfig;
@@ -353,7 +353,7 @@ export type SerializationPipelineContext = {
 /**
  * Type for step durations in pipeline
  */
-export type StepDurations = {
+type StepDurations = {
     serialization?: number;
     sanitization?: number;
     timeout?: number;
@@ -361,7 +361,7 @@ export type StepDurations = {
 /**
  * Type for serialization metadata
  */
-export type SerializationMetadata = {
+type SerializationMetadata = {
     stepDurations?: StepDurations;
     operationTimeout?: number;
     complexity?: string;
@@ -371,7 +371,7 @@ export type SerializationMetadata = {
 /**
  * Type for serialization result
  */
-export type SerializationResult = {
+type SerializationResult = {
     data: SerializedData;
     serializer: string;
     duration: number;
@@ -384,7 +384,7 @@ export type SerializationResult = {
 /**
  * Type for complexity distribution metrics
  */
-export type ComplexityDistribution = {
+type ComplexityDistribution = {
     low: number;
     medium: number;
     high: number;
@@ -392,15 +392,15 @@ export type ComplexityDistribution = {
 /**
  * Type for serializer distribution metrics
  */
-export type SerializerDistribution = Record<string, number>;
+type SerializerDistribution = Record<string, number>;
 /**
  * Type for timeout strategy distribution metrics
  */
-export type TimeoutStrategyDistribution = Record<string, number>;
+type TimeoutStrategyDistribution = Record<string, number>;
 /**
  * Type for serialization metrics
  */
-export type SerializationMetrics = {
+type SerializationMetrics = {
     totalSerializations: number;
     successfulSerializations: number;
     failedSerializations: number;
@@ -415,7 +415,7 @@ export type SerializationMetrics = {
 /**
  * Type for logger dependencies
  */
-export type LoggerDependencies = {
+type LoggerDependencies = {
     contextManager: unknown;
     serializerRegistry: unknown;
     maskingEngine: unknown;
@@ -424,7 +424,7 @@ export type LoggerDependencies = {
 /**
  * Type for log entry structure
  */
-export type LogEntry = {
+type LogEntry = {
     /** The severity level of the log. */
     level: string;
     /** The main log message, formatted from the arguments. */
@@ -437,10 +437,12 @@ export type LogEntry = {
 /**
  * Type for logger options
  */
-export type LoggerOptions = {
+type LoggerOptions = {
     level?: string;
     serviceName?: string;
     transports?: unknown[];
     bindings?: Record<string, any>;
 };
-//# sourceMappingURL=index.d.ts.map
+
+export { errorToJsonValue };
+export type { AdapterHttpError, AdapterHttpRequest, AdapterHttpResponse, BrokerMessage, ComplexityDistribution, ContextCallback, ContextConfig, ContextData, ContextHeaders, ContextValue, FilteredContext, IBrokerAdapter, IContextManager, IHttpClientAdapter, ILogger, JsonValue, LogArguments, LogBindings, LogContext, LogEntry, LogFormatArg, LogMetadata, LogRetentionRules, LoggerDependencies, LoggerOptions, LoggingMatrix, MessageHandler, MessageLifecycleControls, MetadataObject, PipelineContext, RedisCommandOptions, RedisConnectionParams, RedisHashValue, RedisListElement, RedisPipelineOperation, RedisSetMember, RedisSortedSetMember, RedisValue, SanitizationConfig, SanitizationContext, SerializableData, SerializationContextConfig, SerializationMetadata, SerializationMetrics, SerializationPipelineContext, SerializationResult, SerializedData, SerializerDistribution, StepDurations, TimeoutStrategyDistribution };

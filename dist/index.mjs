@@ -5,10 +5,12 @@
  * ecosystem. These types are designed to be shared between the main library
  * and future modules like adapters and serializers.
  */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.errorToJsonValue = errorToJsonValue;
 /**
  * Helper function to convert unknown error to JsonValue
  */
-export function errorToJsonValue(error) {
+function errorToJsonValue(error) {
     if (error instanceof Error) {
         return {
             name: error.name,
@@ -18,4 +20,4 @@ export function errorToJsonValue(error) {
     }
     return String(error);
 }
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.mjs.map

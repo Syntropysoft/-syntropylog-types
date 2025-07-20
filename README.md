@@ -6,13 +6,13 @@
 
 Shared types for the SyntropyLog ecosystem.
 
-## Version 0.1.1
+## Version 0.1.5
 
 **New in this version:**
-- Added comprehensive serialization types (SerializedData, SerializationResult, etc.)
-- Added logging-specific types (LogEntry, LoggerOptions, LoggerDependencies)
-- Added metrics types (SerializationMetrics, ComplexityDistribution, etc.)
-- Centralized all shared types for better consistency across the ecosystem
+- Updated package-lock.json and dependencies
+- Improved type definitions for better TypeScript support
+- Streamlined types for better performance and consistency
+- Removed deprecated types to reduce bundle size
 
 ## Overview
 

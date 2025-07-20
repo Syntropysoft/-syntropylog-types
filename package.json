@@ -1,6 +1,6 @@
 {
   "name": "@syntropylog/types",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Shared types for SyntropyLog ecosystem",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
